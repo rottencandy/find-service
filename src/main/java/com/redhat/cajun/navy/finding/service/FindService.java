@@ -30,11 +30,9 @@ public class FindService {
         List<Victim> victimList = null;
         try {
             victimList = incidentRestClient.getByName(name);
-            //JsonArray victimsArray = new JsonArray(victimList.stream().map(this::toJsonObject).collect(Collectors.toList()));
-            //JsonObject jsonObject = new JsonObject().put("victims", victimsArray);
-
-
-            return Response.ok(victimList).build();
+            JsonArray victimsArray = new JsonArray(victimList.stream().map(this::toJsonObject).collect(Collectors.toList()));
+            JsonObject jsonObject = new JsonObject().put("victims", victimsArray);
+            return Response.ok(jsonObject).build();
         } catch (Exception ex) {
             logger.info("Unable to connect to Incident Service. ", ex);
             return Response.ok("Unable to connect to Incident Service.").build();
