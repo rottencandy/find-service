@@ -35,7 +35,7 @@ public class FindService {
             return Response.ok(jsonObject).build();
         } catch (Exception ex) {
             logger.info("Unable to connect to Incident Service. ", ex);
-            return Response.ok("Unable to connect to Incident Service.").build();
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
         }
     }
 

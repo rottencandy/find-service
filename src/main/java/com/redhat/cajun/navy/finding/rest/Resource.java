@@ -17,13 +17,6 @@ public class Resource {
     FindService findService;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-
-        return "hello";
-    }
-
-    @GET
     @Path("/victim/byName/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getVictims(@PathParam("name") String victimName) {
