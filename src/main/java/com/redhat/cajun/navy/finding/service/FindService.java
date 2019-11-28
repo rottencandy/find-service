@@ -29,7 +29,9 @@ public class FindService {
 
         List<Victim> victimList = null;
         try {
+            logger.info("Request sent to Incident service for name - "+name);
             victimList = incidentRestClient.getByName(name);
+            logger.info("Response received for name - "+name+" - "+victimList);
             JsonArray victimsArray = new JsonArray(victimList.stream().map(this::toJsonObject).collect(Collectors.toList()));
             JsonObject jsonObject = new JsonObject().put("victims", victimsArray);
             return Response.ok(jsonObject).build();
