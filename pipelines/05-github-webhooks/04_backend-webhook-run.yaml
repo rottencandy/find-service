@@ -12,7 +12,7 @@ spec:
     - name: GitHubUser
       value: "<your user name>"
     - name: GitHubRepo
-      value: "findmyrelative-frontend"
+      value: "find-service"
     - name: GitHubSecretName
       value: findmyrelative-backend-webhook-secret
     - name: GitHubAccessTokenKey

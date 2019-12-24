@@ -8,7 +8,6 @@ spec:
     type: git
   - name: image-resource-name
     type: image
-  
   tasks:
   - name: build-image
     taskRef:
@@ -24,4 +23,14 @@ spec:
     params:
     - name: TLSVERIFY
       value: "false"
- 
+  - name: deploy
+    taskRef:
+      name: openshift-client
+    runAfter:
+      - build-image
+    params:
+      - name: ARGS
+        value:
+          - apply
+          - -f
+          -
