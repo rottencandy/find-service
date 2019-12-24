@@ -8,7 +8,6 @@ spec:
     type: git
   - name: image-resource-name
     type: image
-  
   tasks:
   - name: build-image
     taskRef:
@@ -24,4 +23,15 @@ spec:
     params:
     - name: TLSVERIFY
       value: "false"
- 
+  - name: deploy
+    taskRef:
+      name: openshift-client
+      kind: ClusterTask
+    runAfter:
+      - build-image
+    params:
+      - name: ARGS
+        value:
+          - apply
+          - -f
+          - https://raw.githubusercontent.com/SM43/find-service/master/k8s/service.yaml
