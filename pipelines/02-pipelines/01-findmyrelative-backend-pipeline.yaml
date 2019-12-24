@@ -33,4 +33,4 @@ spec:
         value:
           - apply
           - -f
-          -
+          - https://raw.githubusercontent.com/SM43/find-service/master/k8s/service.yaml
