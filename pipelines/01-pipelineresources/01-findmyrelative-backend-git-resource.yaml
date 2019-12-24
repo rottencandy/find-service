@@ -1,9 +1,9 @@
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: find-service-git-repo
+  name: findmyrelative-backend-git-repo
 spec:
   type: git
   params:
   - name: url
-    value: https://github.com/meghanaskanagal/find-service-1.git
+    value: https://github.com/Meghanaskanagal/find-service

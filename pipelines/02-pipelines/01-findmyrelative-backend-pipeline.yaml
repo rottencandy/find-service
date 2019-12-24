@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: findmyrelative-backend-pipeline
+spec:
+  resources:
+  - name: source-git-repo
+    type: git
+  - name: image-resource-name
+    type: image
+  
+  tasks:
+  - name: build-image
+    taskRef:
+      name: buildah-v0-8-0
+      kind: ClusterTask
+    resources:
+      inputs:
+      - name: source
+        resource: source-git-repo
+      outputs:
+      - name: image
+        resource: image-resource-name
+    params:
+    - name: TLSVERIFY
+      value: "false"
+ 
