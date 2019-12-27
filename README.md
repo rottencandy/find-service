@@ -1,8 +1,8 @@
-## find-service
+# find-service
 
 Quarkus based backend service for the Find My Relative demo application.
 
-Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo/findmyrelative-frontend`). 
+Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/findmyrelative-frontend). 
 
 ## Running
 
@@ -16,7 +16,9 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
 
   You can deploy using Dockerfile on OpenShift Webconsole or run the following command.
   
-  `oc new-app --name find-service --strategy docker https://github.com/Emergency-Response-Demo/find-service`
+  ```
+  oc new-app --name find-service --strategy docker https://github.com/Emergency-Response-Demo/find-service
+  ```
   
   You will need to pass `INCIDENT_SERVICE_URL` and `MISSION_SERVICE_URL` as Environment variable.
   
@@ -24,9 +26,11 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
 
 * Prerequisite
 
-    OpenShift v4.x Cluster. You can install using `OpenShift Pipelines Operator` from the Operator Hub.
+    - OpenShift v4.x Cluster.
+     
+    - Tekton Pipeline Installed. You can install using `OpenShift Pipelines Operator` from the Operator Hub.
     
-    You will also use the Tekton CLI (tkn). Download the Tekton CLI by following [instructions](https://github.com/tektoncd/cli#installing-tkn) available on the CLI GitHub repository.
+    - Tekton CLI (tkn) (Optional). Download the Tekton CLI by following [instructions](https://github.com/tektoncd/cli#installing-tkn) available on the CLI GitHub repository.
 
 * Installation Steps
 
@@ -34,17 +38,23 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
     
     2. Clone the repository to your local machine.
     
-        ` git clone https://github.com/<your-github-username>/find-service`
+        ```
+        git clone https://github.com/<your-github-username>/find-service
+       ```
     
     3. Traverse to the pipeline folder.
     
-        ` cd find-service/pipeline/`
+        ```
+        cd find-service/pipeline/
+        ```
         
     4. Login to your OpenShift Cluster.
     
     5. Create a new project `find-my-relative`
     
-        ` oc new-project find-my-relative`
+       ``` 
+       oc new-project find-my-relative
+       ```
     
     6. Install the Pipeline Resources,Task and Pipeline.
     
@@ -52,11 +62,13 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
         
             Install pipeline using below command - 
         
-            ` oc apply -f 02-pipelines/ `
+            ```
+            02-pipelines/01-findmyrelative-backend-pipeline.yaml
+            ```
          
         2. Tasks - 
             
-            - buildah - This task build a image using the Dockerfile and then push it to repository which will specify in pipeline resource.
+            - buildah - This task build a image using the Dockerfile and then push it to repository which we will specify in pipeline resource.
             
             - openshift-client - Here, this task is used to apply knative service which will deploy the image as serverless.
             
@@ -70,21 +82,29 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
             
             Now, you can install using below command - 
             
-            ` oc apply -f 01-pipelineresources/` 
+            ```
+            oc apply -f 01-pipelineresources/
+            ``` 
         
         Now, we are ready to run the pipeline. You can run it by using below command or Go to OpenShift Web Console -> find-my-relative Project -> Pipeline Tab -> Pipeline -> Click on pipeline and Start.
         
-        ` tkn pipeline start findmyrelative-backend-pipeline -r source-git-repo=findmyrelative-backend-git-repo -r image-resource-name=findmyrelative-backend-image -s pipeline`  
+        ``` 
+        tkn pipeline start findmyrelative-backend-pipeline -r source-git-repo=findmyrelative-backend-git-repo -r image-resource-name=findmyrelative-backend-image -s pipeline
+        ```  
         
         Also, You can start pipeline using pipeline run.      
         
-        ` oc apply -f 03-pipelineruns/`
+        ```
+        oc apply -f 03-pipelineruns/01-findmyrelative-backend-pipelinerun.yaml
+        ```
               
     7. Next Step is to create a trigger so that on any code change in GitHub the pipeline will start and deploy the new code. 
          
         Install Event Listener, Trigger Template and Trigger binding.
         
-        ` oc apply -f 04-pipeline-triggers/`
+        ```
+        oc apply -f 04-pipeline-triggers/
+        ```
         
         New pod will be created for Event listener. Get the url for Event Listener which we will need for creating Webhook - ` oc get route`.
     
@@ -104,7 +124,9 @@ Frontend Service can be found [here](`https://github.com/Emergency-Response-Demo
         
         Now, install the task and the task run.
         
-        ` oc apply -f 05-github-webhooks/`
+        ```
+        oc apply -f 05-github-webhooks/
+        ```
         
         If you go to Github, you can see a webhook created for the repository.   
         
