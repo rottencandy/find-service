@@ -26,9 +26,11 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
 
 * Prerequisite
 
-    - OpenShift v4.x Cluster.
+    - OpenShift v4.x Cluster with cluster admin permissions.
      
     - Tekton Pipeline Installed. You can install using `OpenShift Pipelines Operator` from the Operator Hub.
+    
+    - Knative Installed. You can follow this [steps](https://docs.openshift.com/container-platform/4.2/serverless/installing-openshift-serverless.html) to install Serverless in OpenShift. 
     
     - Tekton CLI (tkn) (Optional). Download the Tekton CLI by following [instructions](https://github.com/tektoncd/cli#installing-tkn) available on the CLI GitHub repository.
 
@@ -38,8 +40,8 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
     
     2. Clone the repository to your local machine.
     
-        ```
-        git clone https://github.com/<your-github-username>/find-service
+       ```
+       git clone https://github.com/<your-github-username>/find-service
        ```
     
     3. Traverse to the pipeline folder.
