@@ -8,3 +8,6 @@ spec:
     spec:
       containers:
         - image: image-registry.openshift-image-registry.svc:5000/find-my-relative/backend:latest
+          envFrom:
+            - configMapRef:
+                name: erd-urls

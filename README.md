@@ -43,22 +43,30 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
        ```
        git clone https://github.com/<your-github-username>/find-service
        ```
-    
-    3. Traverse to the pipeline folder.
-    
-        ```
-        cd find-service/pipeline/
-        ```
         
-    4. Login to your OpenShift Cluster.
+    3. Login to your OpenShift Cluster.
     
-    5. Create a new project `find-my-relative`
+    4. Create a new project `find-my-relative`
     
        ``` 
        oc new-project find-my-relative
        ```
+         
+    5. Before Installing Pipeline, Create a Config Map with name ` erd-urls ` which will have `INCIDENT_SERVICE_URL` and `MISSION_SERVICE_URL`. 
     
-    6. Install the Pipeline Resources,Task and Pipeline.
+       To create config map, you can use `erd-urls-config-map.yaml` in `k8s` folder. Add the urls and apply the yaml file using below command.
+    
+       ```
+       oc apply -f k8s/erd-urls-config-map.yaml
+       ```
+    
+    6. Traverse to the pipeline folder.
+        
+       ```
+       cd pipeline/
+       ```   
+    
+    7. Install the Pipeline Resources,Task and Pipeline.
     
         1. Pipeline - There are two task in pipeline - buildah and openshift-client.
         
@@ -100,7 +108,7 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
         oc apply -f 03-pipelineruns/01-findmyrelative-backend-pipelinerun.yaml
         ```
               
-    7. Next Step is to create a trigger so that on any code change in GitHub the pipeline will start and deploy the new code. 
+    8. Next Step is to create a trigger so that on any code change in GitHub the pipeline will start and deploy the new code. 
          
         Install Event Listener, Trigger Template and Trigger binding.
         
@@ -110,7 +118,7 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
         
         New pod will be created for Event listener. Get the url for Event Listener which we will need for creating Webhook - ` oc get route`.
     
-    8. Create a webhook  -
+    9. Create a webhook  -
     
         Firstly, create a GitHub Personal access token. Follow this [instructions](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line#creating-a-token) to create a GitHub token.
         
@@ -132,5 +140,5 @@ Frontend Service can be found [here](https://github.com/Emergency-Response-Demo/
         
         If you go to Github, you can see a webhook created for the repository.   
         
-    9. Now, when you change code and push it to repository. You can see a new pipelinerun is started.              
+    10. Now, when you change code and push it to repository. You can see a new pipelinerun is started.              
         
