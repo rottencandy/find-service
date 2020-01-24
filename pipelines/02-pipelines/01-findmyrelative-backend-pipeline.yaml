@@ -44,4 +44,5 @@ spec:
     params:
       - name: ARGS
         value:
-          - oc patch configmap frontend-env -p '{"data": {"REACT_APP_BACKEND_URL": "$( oc get rt backend -o jsonpath={.status.url} )}}';
+          - >
+            oc patch configmap frontend-env -p "{\"data\": {\"REACT_APP_BACKEND_URL\": \"$( oc get rt backend -o jsonpath={.status.url} )\"}}";
